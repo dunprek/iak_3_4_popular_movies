@@ -3,15 +3,13 @@ package don.com.moviesiak.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.List;
 
-import don.com.moviesiak.Constants;
+import java.util.ArrayList;
+
+
 import don.com.moviesiak.R;
 import don.com.moviesiak.adapter.MainAdapter;
 import don.com.moviesiak.model.MainModel;
@@ -20,8 +18,6 @@ import don.com.moviesiak.services.ApiClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,9 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
     ApiClient apiClient;
 
-    List<ResultsItem> resultsItems;
+    ArrayList<ResultsItem> resultsItems = new ArrayList<>();
 
     String myApiKey;
+
+    private final String KEY_RECYCLER_STATE = "recycler_state";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +48,10 @@ public class MainActivity extends AppCompatActivity {
         Log.d(MY_TAG, myApiKey);
 
 
-        getMyMovies();
+        if (savedInstanceState == null) {
+            getMyMovies();
+        }
     }
-
 
     private void getMyMovies() {
         apiClient = new ApiClient();
@@ -65,18 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     MainModel mainModel = response.body();
                     resultsItems = mainModel.getResults();
 
-                    //ini gunanya untuk membuat smooth scroll
-                    recyclerView.setHasFixedSize(true);
-
-                    //kita set layout manager untuk recyclerview
-                    recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
-
-                    //ngambil data adapter
-                    adapter = new MainAdapter(resultsItems, getApplicationContext());
-
-                    //set data dari adapter ke recyclerview
-                    recyclerView.setAdapter(adapter);
-
+                    setRecyclerView();
                 }
             }
 
@@ -90,5 +79,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Save the values you need into "outState"
+        super.onSaveInstanceState(outState);
 
+
+        outState.putParcelableArrayList("List", resultsItems);
+
+//        Log.i ("myApplication", outState +"");
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // Read values from the "savedInstanceState"
+
+        savedInstanceState.getParcelableArrayList("List");
+        Log.i("myApplication", savedInstanceState + "");
+
+        resultsItems = savedInstanceState.getParcelableArrayList("List");
+
+        setRecyclerView();
+
+    }
+
+    private void setRecyclerView() {
+        //ini gunanya untuk membuat smooth scroll
+        recyclerView.setHasFixedSize(true);
+
+
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+
+        //ngambil data adapter
+        adapter = new MainAdapter(resultsItems, getApplicationContext());
+
+        recyclerView.setAdapter(adapter);
+    }
 }

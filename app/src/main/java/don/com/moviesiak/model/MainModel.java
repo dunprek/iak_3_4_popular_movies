@@ -1,5 +1,6 @@
 package don.com.moviesiak.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
@@ -15,7 +16,7 @@ public class MainModel{
 	private int totalPages;
 
 	@SerializedName("results")
-	private List<ResultsItem> results;
+	private ArrayList<ResultsItem> results;
 
 	@SerializedName("total_results")
 	private int totalResults;
@@ -44,11 +45,11 @@ public class MainModel{
 		return totalPages;
 	}
 
-	public void setResults(List<ResultsItem> results){
+	public void setResults(ArrayList<ResultsItem> results){
 		this.results = results;
 	}
 
-	public List<ResultsItem> getResults(){
+	public ArrayList<ResultsItem> getResults(){
 		return results;
 	}
 

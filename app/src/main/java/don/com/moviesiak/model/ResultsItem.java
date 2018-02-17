@@ -1,182 +1,127 @@
 package don.com.moviesiak.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
+
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+
 import com.google.gson.annotations.SerializedName;
 
-public class ResultsItem{
+public class ResultsItem  implements Parcelable{
 
-	@SerializedName("overview")
-	private String overview;
+    @SerializedName("overview")
+    private String overview;
 
-	@SerializedName("original_language")
-	private String originalLanguage;
+    @SerializedName("title")
+    private String title;
 
-	@SerializedName("original_title")
-	private String originalTitle;
 
-	@SerializedName("video")
-	private boolean video;
+    @SerializedName("poster_path")
+    private String posterPath;
 
-	@SerializedName("title")
-	private String title;
+    @SerializedName("release_date")
+    private String releaseDate;
 
-	@SerializedName("genre_ids")
-	private List<Integer> genreIds;
+    @SerializedName("vote_average")
+    private double voteAverage;
 
-	@SerializedName("poster_path")
-	private String posterPath;
 
-	@SerializedName("backdrop_path")
-	private String backdropPath;
+    public static final Creator<ResultsItem> CREATOR = new Creator<ResultsItem>() {
+        @Override
+        public ResultsItem createFromParcel(Parcel in) {
+            return new ResultsItem(in);
+        }
 
-	@SerializedName("release_date")
-	private String releaseDate;
+        @Override
+        public ResultsItem[] newArray(int size) {
+            return new ResultsItem[size];
+        }
+    };
 
-	@SerializedName("vote_average")
-	private double voteAverage;
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
 
-	@SerializedName("popularity")
-	private double popularity;
+    public String getOverview() {
+        return overview;
+    }
 
-	@SerializedName("id")
-	private int id;
 
-	@SerializedName("adult")
-	private boolean adult;
 
-	@SerializedName("vote_count")
-	private int voteCount;
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setOverview(String overview){
-		this.overview = overview;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public String getOverview(){
-		return overview;
-	}
 
-	public void setOriginalLanguage(String originalLanguage){
-		this.originalLanguage = originalLanguage;
-	}
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
 
-	public String getOriginalLanguage(){
-		return originalLanguage;
-	}
+    public String getPosterPath() {
+        return posterPath;
+    }
 
-	public void setOriginalTitle(String originalTitle){
-		this.originalTitle = originalTitle;
-	}
 
-	public String getOriginalTitle(){
-		return originalTitle;
-	}
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
 
-	public void setVideo(boolean video){
-		this.video = video;
-	}
+    public String getReleaseDate() {
+        return releaseDate;
+    }
 
-	public boolean isVideo(){
-		return video;
-	}
+    public void setVoteAverage(double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
 
-	public void setTitle(String title){
-		this.title = title;
-	}
+    public double getVoteAverage() {
+        return voteAverage;
+    }
+    // Parcelling part
+    public ResultsItem(Parcel in) {
+        this.overview = in.readString();
+        this.title = in.readString();
+        this.posterPath = in.readString();
+        this.releaseDate = in.readString();
+        this.voteAverage = in.readDouble();
+    }
 
-	public String getTitle(){
-		return title;
-	}
 
-	public void setGenreIds(List<Integer> genreIds){
-		this.genreIds = genreIds;
-	}
 
-	public List<Integer> getGenreIds(){
-		return genreIds;
-	}
 
-	public void setPosterPath(String posterPath){
-		this.posterPath = posterPath;
-	}
+    @Override
+    public String toString() {
+        return
+                "ResultsItem{" +
+                        "overview = '" + overview + '\'' +
+                        ",title = '" + title + '\'' +
+                        ",poster_path = '" + posterPath + '\'' +
+                        ",release_date = '" + releaseDate + '\'' +
+                        ",vote_average = '" + voteAverage + '\'' +
+                        "}";
+    }
 
-	public String getPosterPath(){
-		return posterPath;
-	}
 
-	public void setBackdropPath(String backdropPath){
-		this.backdropPath = backdropPath;
-	}
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-	public String getBackdropPath(){
-		return backdropPath;
-	}
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
 
-	public void setReleaseDate(String releaseDate){
-		this.releaseDate = releaseDate;
-	}
-
-	public String getReleaseDate(){
-		return releaseDate;
-	}
-
-	public void setVoteAverage(double voteAverage){
-		this.voteAverage = voteAverage;
-	}
-
-	public double getVoteAverage(){
-		return voteAverage;
-	}
-
-	public void setPopularity(double popularity){
-		this.popularity = popularity;
-	}
-
-	public double getPopularity(){
-		return popularity;
-	}
-
-	public void setId(int id){
-		this.id = id;
-	}
-
-	public int getId(){
-		return id;
-	}
-
-	public void setAdult(boolean adult){
-		this.adult = adult;
-	}
-
-	public boolean isAdult(){
-		return adult;
-	}
-
-	public void setVoteCount(int voteCount){
-		this.voteCount = voteCount;
-	}
-
-	public int getVoteCount(){
-		return voteCount;
-	}
-
-	@Override
- 	public String toString(){
-		return 
-			"ResultsItem{" + 
-			"overview = '" + overview + '\'' + 
-			",original_language = '" + originalLanguage + '\'' + 
-			",original_title = '" + originalTitle + '\'' + 
-			",video = '" + video + '\'' + 
-			",title = '" + title + '\'' + 
-			",genre_ids = '" + genreIds + '\'' + 
-			",poster_path = '" + posterPath + '\'' + 
-			",backdrop_path = '" + backdropPath + '\'' + 
-			",release_date = '" + releaseDate + '\'' + 
-			",vote_average = '" + voteAverage + '\'' + 
-			",popularity = '" + popularity + '\'' + 
-			",id = '" + id + '\'' + 
-			",adult = '" + adult + '\'' + 
-			",vote_count = '" + voteCount + '\'' + 
-			"}";
-		}
+        parcel.writeString(overview);
+        parcel.writeString(title);
+        parcel.writeString(posterPath);
+        parcel.writeString(releaseDate);
+        parcel.writeDouble(voteAverage);
+    }
 }

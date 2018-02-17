@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import don.com.moviesiak.Constants;
@@ -27,10 +28,10 @@ import don.com.moviesiak.model.ResultsItem;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
 
-    List<ResultsItem> data;
+    ArrayList<ResultsItem> data;
     Context context;
 
-    public MainAdapter(List<ResultsItem> data, Context context) {
+    public MainAdapter(ArrayList<ResultsItem> data, Context context) {
         this.data = data;
         this.context = context;
     }
@@ -76,7 +77,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         public MyViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_poster);
-          //set click listener for  viewholder
+            //set click listener for  viewholder
             itemView.setOnClickListener(this);
         }
 
@@ -91,6 +92,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
             intent.putExtra("MOVIE_YEAR",data.get(getAdapterPosition()).getReleaseDate());
             intent.putExtra("MOVIE_RATING",data.get(getAdapterPosition()).getVoteAverage());
             intent.putExtra("MOVIE_OVERVIEW",data.get(getAdapterPosition()).getOverview());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 
         }

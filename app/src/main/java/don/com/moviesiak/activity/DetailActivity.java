@@ -41,6 +41,9 @@ public class DetailActivity extends AppCompatActivity {
             movieRating = extras.getDouble("MOVIE_RATING");
             movieOverview = extras.getString("MOVIE_OVERVIEW");
 
+            Log.d("OVERVIEW-VIEW",movieOverview);
+
+
         }
 
         //set imageurl + posterPath ke imageView
