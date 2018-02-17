@@ -61,7 +61,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         //image picasso
         Picasso.with(context)
                 .load(Constants.BASE_IMAGE_URL + pathPoster)
-                .fit()
+                .resize(500,750)
                 .into(holder.imageView);
     }
 
