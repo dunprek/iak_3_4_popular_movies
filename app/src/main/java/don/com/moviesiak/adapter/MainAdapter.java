@@ -108,7 +108,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
                     DbInitializer.addFavorite(AppDatabase.getInMemoryDatabase(context),
                             data.get(getAdapterPosition()).getMovie_id(),
-                            data.get(getAdapterPosition()).getOverview());
+                            data.get(getAdapterPosition()).getPosterPath());
                     break;
             }
 

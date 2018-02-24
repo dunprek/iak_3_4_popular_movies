@@ -24,4 +24,8 @@ public class DbInitializer {
     }
 
 
+    public static String getAllData(AppDatabase db){
+        return db.favoriteModel().findAllFavorite().toString();
+    }
+
 }

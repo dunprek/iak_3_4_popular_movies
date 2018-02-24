@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 
 import don.com.moviesiak.R;
+import don.com.moviesiak.activity.favorite.FavoriteActivity;
 import don.com.moviesiak.adapter.MainAdapter;
 import don.com.moviesiak.db.AppDatabase;
-import don.com.moviesiak.db.Favorite;
 import don.com.moviesiak.model.MainModel;
 import don.com.moviesiak.model.ResultsItem;
 import don.com.moviesiak.services.ApiClient;

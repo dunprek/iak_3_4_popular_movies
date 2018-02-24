@@ -13,10 +13,12 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import don.com.moviesiak.Constants;
 import don.com.moviesiak.R;
 import don.com.moviesiak.activity.DetailActivity;
+import don.com.moviesiak.db.Favorite;
 import don.com.moviesiak.model.ResultsItem;
 
 /**
@@ -25,11 +27,11 @@ import don.com.moviesiak.model.ResultsItem;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyViewHolder> {
 
-    ArrayList<ResultsItem> data;
+    List<Favorite> data;
     Context context;
 
 
-    public FavoriteAdapter(ArrayList<ResultsItem> data, Context context) {
+    public FavoriteAdapter(List<Favorite> data, Context context) {
         this.data = data;
         this.context = context;
     }
@@ -54,7 +56,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyView
    /*-----------------------------------------------------------------*/
 
 
-        String pathPoster = data.get(position).getPosterPath();
+        String pathPoster = data.get(position).getImage_url();
         //image picasso
         Picasso.with(context)
                 .load(Constants.BASE_IMAGE_URL + pathPoster)
@@ -83,16 +85,6 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyView
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.iv_poster:
-                    Log.d("TAG", "onClick " + getAdapterPosition());
-
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("MOVIE_POSTER", data.get(getAdapterPosition()).getPosterPath());
-                    intent.putExtra("MOVIE_TITLE", data.get(getAdapterPosition()).getTitle());
-                    intent.putExtra("MOVIE_YEAR", data.get(getAdapterPosition()).getReleaseDate());
-                    intent.putExtra("MOVIE_RATING", data.get(getAdapterPosition()).getVoteAverage());
-                    intent.putExtra("MOVIE_OVERVIEW", data.get(getAdapterPosition()).getOverview());
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
                     break;
 
 
