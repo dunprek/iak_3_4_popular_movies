@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,12 +57,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
    /*-----------------------------------------------------------------*/
 
 
-
         String pathPoster = data.get(position).getPosterPath();
         //image picasso
         Picasso.with(context)
                 .load(Constants.BASE_IMAGE_URL + pathPoster)
-                .resize(500,750)
+                .resize(500, 750)
                 .into(holder.imageView);
     }
 
@@ -73,27 +73,37 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView imageView;
+        private Button button;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_poster);
+            button = itemView.findViewById(R.id.btn_favorite);
             //set click listener for  viewholder
-            itemView.setOnClickListener(this);
+            imageView.setOnClickListener(this);
+            button.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.iv_poster:
+                    Log.d("TAG", "onClick " + getAdapterPosition());
 
-            Log.d("TAG","onClick "+ getAdapterPosition());
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("MOVIE_POSTER", data.get(getAdapterPosition()).getPosterPath());
+                    intent.putExtra("MOVIE_TITLE", data.get(getAdapterPosition()).getTitle());
+                    intent.putExtra("MOVIE_YEAR", data.get(getAdapterPosition()).getReleaseDate());
+                    intent.putExtra("MOVIE_RATING", data.get(getAdapterPosition()).getVoteAverage());
+                    intent.putExtra("MOVIE_OVERVIEW", data.get(getAdapterPosition()).getOverview());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    break;
 
-            Intent intent = new Intent(context,DetailActivity.class);
-            intent.putExtra("MOVIE_POSTER",data.get(getAdapterPosition()).getPosterPath());
-            intent.putExtra("MOVIE_TITLE",data.get(getAdapterPosition()).getTitle());
-            intent.putExtra("MOVIE_YEAR",data.get(getAdapterPosition()).getReleaseDate());
-            intent.putExtra("MOVIE_RATING",data.get(getAdapterPosition()).getVoteAverage());
-            intent.putExtra("MOVIE_OVERVIEW",data.get(getAdapterPosition()).getOverview());
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+                case R.id.btn_favorite:
+                    break;
+            }
+
 
         }
     }
