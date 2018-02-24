@@ -71,6 +71,7 @@ public class FavoriteActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"KOSONG",Toast.LENGTH_LONG).show();
         }else{
                 //ini gunanya untuk membuat smooth scroll
+                recyclerView.setHasFixedSize(true);
 
 
                 recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
@@ -79,10 +80,7 @@ public class FavoriteActivity extends AppCompatActivity {
                 adapter = new FavoriteAdapter(favorites, getApplicationContext());
 
                 recyclerView.setAdapter(adapter);
-
         }
-
-
     }
 
 }
