@@ -1,10 +1,14 @@
 package don.com.moviesiak.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 
 import java.util.ArrayList;
@@ -12,6 +16,8 @@ import java.util.ArrayList;
 
 import don.com.moviesiak.R;
 import don.com.moviesiak.adapter.MainAdapter;
+import don.com.moviesiak.db.AppDatabase;
+import don.com.moviesiak.db.Favorite;
 import don.com.moviesiak.model.MainModel;
 import don.com.moviesiak.model.ResultsItem;
 import don.com.moviesiak.services.ApiClient;
@@ -51,6 +57,30 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getMyMovies();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                goToFavorite();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void goToFavorite(){
+        startActivity(new Intent(MainActivity.this, FavoriteActivity.class));
     }
 
     private void getMyMovies() {
@@ -116,5 +146,11 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MainAdapter(resultsItems, getApplicationContext());
 
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        AppDatabase.destroyInstance();
+        super.onDestroy();
     }
 }

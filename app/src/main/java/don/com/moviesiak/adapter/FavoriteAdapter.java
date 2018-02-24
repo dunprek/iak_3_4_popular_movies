@@ -9,33 +9,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import don.com.moviesiak.Constants;
 import don.com.moviesiak.R;
 import don.com.moviesiak.activity.DetailActivity;
-import don.com.moviesiak.db.AppDatabase;
-import don.com.moviesiak.db.utils.DbInitializer;
 import don.com.moviesiak.model.ResultsItem;
 
-
 /**
- * Created by gideon on 11/02/18.
+ * Created by gideon on 24/02/18.
  */
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> {
+public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyViewHolder> {
 
     ArrayList<ResultsItem> data;
     Context context;
 
 
-    public MainAdapter(ArrayList<ResultsItem> data, Context context) {
+    public FavoriteAdapter(ArrayList<ResultsItem> data, Context context) {
         this.data = data;
         this.context = context;
     }
@@ -45,7 +39,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
         //ADD VIEW TO VIEW HOLDER WHICH IS LIST ITEM LAYOUT
         //
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_favorite, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -76,15 +70,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView imageView;
-        private Button button;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_poster);
-            button = itemView.findViewById(R.id.btn_favorite);
             //set click listener for  viewholder
             imageView.setOnClickListener(this);
-            button.setOnClickListener(this);
+
         }
 
         @Override
@@ -103,13 +95,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                     context.startActivity(intent);
                     break;
 
-                case R.id.btn_favorite:
-                    Log.d("TAG", "onClick " + data.get(getAdapterPosition()).getMovie_id());
 
-                    DbInitializer.addFavorite(AppDatabase.getInMemoryDatabase(context),
-                            data.get(getAdapterPosition()).getMovie_id(),
-                            data.get(getAdapterPosition()).getOverview());
-                    break;
             }
 
 

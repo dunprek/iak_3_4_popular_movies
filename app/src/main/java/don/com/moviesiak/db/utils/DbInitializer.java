@@ -14,7 +14,8 @@ public class DbInitializer {
     private static final int DELAY_MILLIS = 500;
 
 
-    private static Favorite addFavorite(final AppDatabase db, final int movie_id, final String image_url) {
+
+    public static Favorite addFavorite(final AppDatabase db, final int movie_id, final String image_url) {
         Favorite favorite = new Favorite();
         favorite.movie_id = movie_id;
         favorite.image_url = image_url;

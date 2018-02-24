@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso;
 
 import don.com.moviesiak.Constants;
 import don.com.moviesiak.R;
+import don.com.moviesiak.db.AppDatabase;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -57,5 +58,10 @@ public class DetailActivity extends AppCompatActivity {
         tvYear.setText(movieYear);
         tvRating.setText(String.valueOf(movieRating));
         tvOverview.setText(movieOverview);
+    }
+
+    protected void onDestroy() {
+        AppDatabase.destroyInstance();
+        super.onDestroy();
     }
 }

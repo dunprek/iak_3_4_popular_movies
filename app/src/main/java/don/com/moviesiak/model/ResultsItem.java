@@ -13,6 +13,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResultsItem  implements Parcelable{
 
+    @SerializedName("id")
+    private Integer  movie_id;
+
     @SerializedName("overview")
     private String overview;
 
@@ -41,6 +44,15 @@ public class ResultsItem  implements Parcelable{
             return new ResultsItem[size];
         }
     };
+
+
+    public Integer getMovie_id() {
+        return movie_id;
+    }
+
+    public void setMovie_id(Integer movie_id) {
+        this.movie_id = movie_id;
+    }
 
     public void setOverview(String overview) {
         this.overview = overview;
@@ -87,6 +99,7 @@ public class ResultsItem  implements Parcelable{
     }
     // Parcelling part
     public ResultsItem(Parcel in) {
+        this.movie_id = in.readInt();
         this.overview = in.readString();
         this.title = in.readString();
         this.posterPath = in.readString();
@@ -118,6 +131,7 @@ public class ResultsItem  implements Parcelable{
     @Override
     public void writeToParcel(Parcel parcel, int i) {
 
+        parcel.writeInt(movie_id);
         parcel.writeString(overview);
         parcel.writeString(title);
         parcel.writeString(posterPath);
