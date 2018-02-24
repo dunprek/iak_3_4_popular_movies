@@ -23,6 +23,14 @@ public class DbInitializer {
         return favorite;
     }
 
+    public static Favorite deleteFavoriteItem(final AppDatabase db, final int movie_id, final String image_url) {
+        Favorite favorite = new Favorite();
+        favorite.movie_id = movie_id;
+        favorite.image_url = image_url;
+        db.favoriteModel().deleteByID(favorite);
+        return favorite;
+    }
+
 
     public static String getAllData(AppDatabase db){
         return db.favoriteModel().findAllFavorite().toString();

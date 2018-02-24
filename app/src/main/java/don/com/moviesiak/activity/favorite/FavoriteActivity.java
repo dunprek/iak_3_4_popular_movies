@@ -49,12 +49,6 @@ public class FavoriteActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-//        AppDatabase.destroyInstance();
-        super.onDestroy();
-    }
-
 
     private void subcribeUiFavorite(){
         mViewModel.getListFavorite().observe(this, new Observer<List<Favorite>>() {

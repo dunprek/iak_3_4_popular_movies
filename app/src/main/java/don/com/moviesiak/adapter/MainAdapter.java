@@ -8,10 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -73,18 +77,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         return data.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,OnLikeListener {
 
         private ImageView imageView;
-        private Button button;
+        private LikeButton button;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_poster);
-            button = itemView.findViewById(R.id.btn_favorite);
+            button = itemView.findViewById(R.id.star_button);
             //set click listener for  viewholder
             imageView.setOnClickListener(this);
-            button.setOnClickListener(this);
+            button.setOnLikeListener(this);
         }
 
         @Override
@@ -103,16 +107,38 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                     context.startActivity(intent);
                     break;
 
-                case R.id.btn_favorite:
-                    Log.d("TAG", "onClick " + data.get(getAdapterPosition()).getMovie_id());
+            /*    case R.id.star_button:
+             *//*       Log.d("TAG", "onClick " + data.get(getAdapterPosition()).getMovie_id());
 
                     DbInitializer.addFavorite(AppDatabase.getInMemoryDatabase(context),
                             data.get(getAdapterPosition()).getMovie_id(),
-                            data.get(getAdapterPosition()).getPosterPath());
-                    break;
+                            data.get(getAdapterPosition()).getPosterPath());*//*
+
+
+                    break;*/
+
             }
+        }
 
+        @Override
+        public void liked(LikeButton likeButton) {
+        /*    Toast.makeText(context,"LIKED",Toast.LENGTH_SHORT).show();
+            Log.d("TAG","CLICKED");*/
 
+            //I use this for add movie to favourite by its ID
+            DbInitializer.addFavorite(AppDatabase.getInMemoryDatabase(context),
+                    data.get(getAdapterPosition()).getMovie_id(),
+                    data.get(getAdapterPosition()).getPosterPath());
+
+        }
+
+        @Override
+        public void unLiked(LikeButton likeButton) {
+
+            //I use this for deleting movie from favourite by its ID
+            DbInitializer.deleteFavoriteItem(AppDatabase.getInMemoryDatabase(context),
+                    data.get(getAdapterPosition()).getMovie_id(),
+                    data.get(getAdapterPosition()).getPosterPath());
         }
     }
 }

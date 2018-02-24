@@ -2,11 +2,14 @@
     <string name="app_name">movies.iak</string>
 
     <!--PUT YOUR API KEY HERE-->
-    <string name="api_key"></string>
+    <string name="api_key">8bc38114f17a8e3002a5e151b1ac2bda</string>
 
     <!--ITEM-->
     <string name="text_name" translatable="false">Movie Name</string>
     <string name="text_overview" translatable="false">Movie Overview</string>
     <string name="favorite">Favorite</string>
+
+
+
 
 </resources>
