@@ -2,20 +2,23 @@ package don.com.moviesiak.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 
-import com.like.LikeButton;
-import com.like.OnLikeListener;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -77,18 +80,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
         return data.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,OnLikeListener {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView imageView;
-        private LikeButton button;
+        private ToggleButton toggleButton;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.iv_poster);
-            button = itemView.findViewById(R.id.star_button);
+
             //set click listener for  viewholder
             imageView.setOnClickListener(this);
-            button.setOnLikeListener(this);
         }
 
         @Override
@@ -98,6 +100,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
                     Log.d("TAG", "onClick " + getAdapterPosition());
 
                     Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra("MOVIE_ID", data.get(getAdapterPosition()).getMovie_id());
                     intent.putExtra("MOVIE_POSTER", data.get(getAdapterPosition()).getPosterPath());
                     intent.putExtra("MOVIE_TITLE", data.get(getAdapterPosition()).getTitle());
                     intent.putExtra("MOVIE_YEAR", data.get(getAdapterPosition()).getReleaseDate());
@@ -117,28 +120,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MyViewHolder> 
 
                     break;*/
 
+
             }
         }
 
-        @Override
-        public void liked(LikeButton likeButton) {
-        /*    Toast.makeText(context,"LIKED",Toast.LENGTH_SHORT).show();
-            Log.d("TAG","CLICKED");*/
 
-            //I use this for add movie to favourite by its ID
-            DbInitializer.addFavorite(AppDatabase.getInMemoryDatabase(context),
-                    data.get(getAdapterPosition()).getMovie_id(),
-                    data.get(getAdapterPosition()).getPosterPath());
 
-        }
 
-        @Override
-        public void unLiked(LikeButton likeButton) {
-
-            //I use this for deleting movie from favourite by its ID
-            DbInitializer.deleteFavoriteItem(AppDatabase.getInMemoryDatabase(context),
-                    data.get(getAdapterPosition()).getMovie_id(),
-                    data.get(getAdapterPosition()).getPosterPath());
-        }
     }
 }
