@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        AppDatabase.destroyInstance();
+//        AppDatabase.destroyInstance();
         super.onDestroy();
     }
 }

@@ -61,7 +61,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     protected void onDestroy() {
-        AppDatabase.destroyInstance();
         super.onDestroy();
     }
 }
